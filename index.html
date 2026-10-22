@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AV Project Kick-Off | SKS Technologies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{color-scheme:light dark;--bg:#f3f5f9;--card:#fff;--sec:#f6f8fb;--inp:#f6f8fb;--txt:#161a23;--txt2:#566073;--b1:rgba(20,30,60,.09);--b2:rgba(20,30,60,.2);--r:10px;--rl:16px;--navy:#1d3461;--pri:#1d3461;--pri-h:#162a51;--ring:rgba(29,52,97,.18);--green:#16a34a;--red:#dc2626;--redt:#b91c1c;--gray:#6b7280;--bar:rgba(255,255,255,.85);--sh:0 1px 2px rgba(20,30,60,.04),0 10px 28px -10px rgba(20,30,60,.12)}
+    @media(prefers-color-scheme:dark){:root{--bg:#0e1320;--card:#171d2e;--sec:#1d2438;--inp:#1d2438;--txt:#eef1f8;--txt2:#9aa5bd;--b1:rgba(255,255,255,.08);--b2:rgba(255,255,255,.18);--pri:#3f6ad8;--pri-h:#5a80e6;--ring:rgba(90,128,230,.32);--redt:#f87171;--bar:rgba(14,19,32,.85);--sh:0 1px 2px rgba(0,0,0,.3),0 10px 28px -10px rgba(0,0,0,.55)}}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;padding:1.5rem 1rem 1.5rem;-webkit-font-smoothing:antialiased}
+    .page{max-width:820px;margin:0 auto}
+
+    /* Hero */
+    .kf-hero{position:relative;overflow:hidden;border-radius:20px;padding:2.2rem 2rem 2rem;margin-bottom:1.4rem;color:#fff;background:linear-gradient(135deg,#13224a 0%,#1d3461 52%,#2a5aa0 100%);box-shadow:0 16px 40px -16px rgba(29,52,97,.6)}
+    .kf-wave{position:absolute;right:-20px;top:50%;transform:translateY(-50%);width:380px;max-width:70%;opacity:.55;pointer-events:none}
+    .kf-badge{position:relative;display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:5px 12px;border-radius:99px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22)}
+    .kf-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:#7fd1a0}
+    .kf-title{position:relative;display:block;font-size:clamp(28px,5vw,38px);font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:14px 0 8px}
+    .kf-sub{position:relative;max-width:34ch;font-size:15px;line-height:1.5;color:rgba(255,255,255,.78)}
+
+    /* Cards */
+    .kf-card{--accent:#1d3461;position:relative;background:var(--card);border:1px solid var(--b1);border-radius:var(--rl);margin-bottom:1.1rem;overflow:hidden;box-shadow:var(--sh);animation:rise .5s both}
+    .kf-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+    .c1{--accent:#3b6fd8}.c2{--accent:#c47d0e;animation-delay:.07s}.c3{--accent:#2e8a4a;animation-delay:.14s}.c4{--accent:#d03a3a;animation-delay:.21s}
+    @keyframes rise{from{opacity:0;transform:translateY(10px)}}
+    .kf-sh{display:flex;align-items:center;gap:12px;padding:20px 24px 4px 28px}
+    .kf-num{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+    .kf-st{font-size:18px;font-weight:700;letter-spacing:-.01em}
+    .kf-fields{padding:16px 24px 24px 28px;display:grid;gap:16px}
+    .kf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:540px){.kf-row,.cgrid{grid-template-columns:1fr!important}.kf-hero{padding:1.7rem 1.3rem}.kf-fields{padding:14px 18px 20px 22px}.kf-sh{padding:18px 18px 2px 22px}}
+    .kf-f{display:flex;flex-direction:column;gap:6px}
+    .kf-f.full{grid-column:1/-1}
+    .kf-label{font-size:13px;font-weight:600;color:var(--txt)}
+    .req{color:var(--red);margin-left:2px}
+    .kf-input,.kf-ta{font-family:'DM Sans',sans-serif;font-size:15px;color:var(--txt);background:var(--inp);border:1px solid var(--b2);border-radius:var(--r);padding:11px 14px;min-height:44px;outline:none;transition:border-color .15s,box-shadow .15s,background .15s;width:100%}
+    .kf-input::placeholder,.kf-ta::placeholder{color:var(--txt2);opacity:.55}
+    .kf-input:focus,.kf-ta:focus{border-color:var(--pri);box-shadow:0 0 0 4px var(--ring);background:var(--card)}
+    .kf-ta{resize:vertical;min-height:92px;line-height:1.55}
+    .tog-row{align-self:flex-start;display:inline-flex;gap:2px;padding:3px;background:var(--inp);border:1px solid var(--b1);border-radius:99px}
+    .tog{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:7px 20px;border-radius:99px;border:0;background:transparent;color:var(--txt2);cursor:pointer;transition:background .15s,color .15s;user-select:none}
+    .tog:hover{color:var(--txt)}
+    .tog:focus-visible,.chk:has(input:focus-visible){outline:3px solid var(--ring);outline-offset:1px}
+    .tog.ay{background:var(--green);color:#fff}
+    .tog.an{background:var(--red);color:#fff}
+    .tog.aa{background:var(--gray);color:#fff}
+    .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+    /* Sticky nav */
+    .kf-nav{position:sticky;top:10px;z-index:30;display:flex;gap:4px;overflow-x:auto;padding:6px;margin-bottom:1.2rem;background:var(--bar);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--b1);border-radius:14px;box-shadow:var(--sh);scrollbar-width:none}
+    .kf-nav a{flex:1;text-align:center;white-space:nowrap;padding:9px 14px;border-radius:9px;font-size:13px;font-weight:600;color:var(--txt2);text-decoration:none;transition:background .15s,color .15s}
+    .kf-nav a:hover{color:var(--txt);background:var(--sec)}
+    .kf-nav a.on{background:var(--pri);color:#fff}
+    .kf-nav a:focus-visible{outline:3px solid var(--ring);outline-offset:1px}
+    .kf-card{scroll-margin-top:84px}
+
+    /* PPE chips */
+    .chk-row{display:flex;gap:8px;flex-wrap:wrap}
+    .chk{position:relative;font-size:13px;font-weight:600;padding:8px 15px;border-radius:99px;border:1px solid var(--b2);background:var(--inp);color:var(--txt2);cursor:pointer;transition:all .15s;user-select:none;display:inline-flex;align-items:center}
+    .chk input{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+    .chk:hover{color:var(--txt);border-color:var(--txt2)}
+    .chk:has(input:checked){background:rgba(220,38,38,.1);color:var(--redt);border-color:var(--red)}
+    .chk:has(input:checked)::before{content:'\2713';margin-right:7px;font-weight:700}
+
+    /* Sticky bar */
+    .kf-bar{position:sticky;bottom:max(12px,env(safe-area-inset-bottom));z-index:20;display:flex;gap:12px;align-items:center;margin-top:1.25rem;padding:12px 14px 12px 20px;background:var(--bar);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--b1);border-radius:18px;box-shadow:0 10px 30px -8px rgba(20,30,60,.25)}
+    .kf-prog{flex:1;min-width:0}
+    .kf-prog-t{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--txt2);margin-bottom:6px}
+    .kf-track{height:6px;border-radius:9px;background:var(--b1);overflow:hidden}
+    .kf-track i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pri),#4f86e8);border-radius:9px;transition:width .3s}
+    .btn-reset{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:11px 16px;background:transparent;color:var(--txt2);border:1px solid var(--b2);border-radius:var(--r);cursor:pointer;transition:background .15s}
+    .btn-reset:hover{background:var(--sec)}
+    .btn-send{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;padding:12px 24px;background:var(--pri);color:#fff;border:none;border-radius:var(--r);cursor:pointer;display:flex;align-items:center;gap:9px;transition:background .15s,transform .1s,box-shadow .15s;box-shadow:0 6px 18px -4px var(--ring)}
+    .btn-send svg,.btn-dl-again svg{vertical-align:-3px}
+    .btn-send:hover:not(:disabled){background:var(--pri-h);transform:translateY(-1px)}
+    .btn-send:active:not(:disabled){transform:none}
+    .btn-send:disabled{opacity:.6;cursor:not-allowed;box-shadow:none}
+    .btn-send:focus-visible,.btn-dl-again:focus-visible{outline:3px solid var(--ring);outline-offset:2px}
+    .spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media(max-width:540px){.kf-bar{flex-wrap:wrap;padding:12px 14px}.kf-prog{flex-basis:100%}.btn-send{flex:1;justify-content:center}}
+
+    /* Success */
+    #success-screen{display:none;max-width:600px;margin:32px auto 0;padding:0 1rem}
+    .success-card{background:var(--card);border:1px solid var(--b1);border-radius:20px;overflow:hidden;box-shadow:var(--sh)}
+    .success-top{background:linear-gradient(135deg,#13224a,#1d3461 55%,#2a5aa0);padding:30px 28px 26px;text-align:center}
+    .success-icon{width:60px;height:60px;margin:0 auto 14px;border-radius:50%;background:rgba(127,209,160,.2);display:flex;align-items:center;justify-content:center}
+    .success-icon path{stroke-dasharray:30;stroke-dashoffset:30;animation:draw .5s .2s ease forwards}
+    @keyframes draw{to{stroke-dashoffset:0}}
+    .success-top h2{color:#fff;font-size:21px;font-weight:700;margin-bottom:6px}
+    .success-top p{color:rgba(255,255,255,.78);font-size:14px;line-height:1.5}
+    .success-body{padding:24px 28px}
+    .step-list{list-style:none;margin-bottom:22px}
+    .step-list li{position:relative;display:flex;align-items:flex-start;gap:14px;font-size:14px;color:var(--txt2);line-height:1.5;padding-bottom:18px}
+    .step-list li:not(:last-child)::after{content:'';position:absolute;left:12px;top:28px;bottom:2px;width:2px;background:var(--b2)}
+    .step-num{width:26px;height:26px;min-width:26px;background:var(--pri);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+    .step-list li strong{color:var(--txt)}
+    .dl-badge{display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:var(--sec);border:1px solid var(--b1);border-radius:var(--r);padding:10px 14px;font-family:'DM Mono',monospace;font-size:12px;color:var(--txt);font-weight:500;margin-bottom:20px}
+    .dl-badge .ico{display:flex;color:var(--txt2)}
+    .action-row{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-dl-again{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:10px 18px;background:var(--pri);color:#fff;border:none;border-radius:var(--r);cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .15s}
+    .btn-dl-again:hover{background:var(--pri-h)}
+    .btn-new{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:10px 18px;background:transparent;color:var(--txt2);border:1px solid var(--b2);border-radius:var(--r);cursor:pointer;transition:background .15s}
+    .btn-new:hover{background:var(--sec)}
+    .prev-wrap{background:var(--card);border:1px solid var(--b1);border-radius:var(--rl);overflow:hidden;margin-top:22px}
+    .prev-top{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:var(--sec);border-bottom:1px solid var(--b1);flex-wrap:wrap;gap:8px}
+    .prev-lbl{font-size:12px;font-weight:600;color:var(--txt2)}
+    .prev-sub{font-size:13px;color:var(--txt);font-weight:600;margin-top:2px}
+    .prev-scroll{padding:16px;overflow-x:auto;background:var(--bg)}
+    .prev-inner{background:#fff;color:#1a1a18;display:inline-block;min-width:100%}
+    .err-flash{border-color:var(--red)!important;box-shadow:0 0 0 4px rgba(220,38,38,.18)!important}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.success-icon path{stroke-dashoffset:0}}
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     FORM
+═══════════════════════════════════════════ -->
+<div class="page" id="form-page">
+
+  <div class="kf-hero">
+    <svg class="kf-wave" viewBox="0 0 360 120" fill="none" stroke="#fff" stroke-linecap="round" aria-hidden="true"><path stroke-width="2" opacity=".5" d="M0 60C30 20 50 100 80 60S130 10 160 60 220 110 250 60 310 20 360 60"/><path stroke-width="2" opacity=".25" d="M0 60C30 95 55 25 85 60S135 105 165 60 225 15 255 60 315 100 360 60"/></svg>
+    <div class="kf-badge">Audio Visual</div>
+    <h1 class="kf-title">Project Kick-Off</h1>
+    <p class="kf-sub">Fill in the details, then copy the formatted summary straight into Outlook.</p>
+  </div>
+
+  <nav class="kf-nav" aria-label="Form sections">
+    <a href="#sec-project" class="on">Project details</a><a href="#sec-eng">Engineering</a><a href="#sec-comm">Commissioning</a><a href="#sec-safe">Site &amp; safety</a>
+  </nav>
+
+  <!-- PROJECT -->
+  <div class="kf-card c1" id="sec-project">
+    <div class="kf-sh"><span class="kf-num">1</span><span class="kf-st">Project details</span></div>
+    <div class="kf-fields">
+      <div class="kf-row">
+        <div class="kf-f">
+          <label class="kf-label">Project Name <span class="req">*</span></label>
+          <input class="kf-input" id="f-pname" type="text" placeholder="e.g. Boardroom AV Fitout" />
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">Job Number</label>
+          <input class="kf-input" id="f-jobno" type="text" placeholder="e.g. AV-2026-0142" />
+        </div>
+      </div>
+      <div class="kf-row">
+        <div class="kf-f">
+          <label class="kf-label">Project Manager <span class="req">*</span></label>
+          <input class="kf-input" id="f-pm" type="text" placeholder="Full name" />
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">Client Contact</label>
+          <input class="kf-input" id="f-client" type="text" placeholder="Name — Company" />
+        </div>
+      </div>
+      <div class="kf-row">
+        <div class="kf-f">
+          <label class="kf-label">Estimated Start</label>
+          <input class="kf-input" id="f-start" type="date" />
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">Start Time</label>
+          <input class="kf-input" id="f-starttime" type="time" />
+        </div>
+      </div>
+      <div class="kf-row">
+        <div class="kf-f">
+          <label class="kf-label">Server Folder Location</label>
+          <input class="kf-input" id="f-server" type="text" placeholder="\\fileserv01\Projects\..." />
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">Parking Available</label>
+          <div class="tog-row" id="tg-parking">
+            <button class="tog" data-val="Yes" onclick="tog('tg-parking',this)">Yes</button>
+            <button class="tog" data-val="No"  onclick="tog('tg-parking',this)">No</button>
+          </div>
+        </div>
+      </div>
+      <div class="kf-f full" id="parking-wrap" style="display:none">
+        <label class="kf-label">Parking Location</label>
+        <input class="kf-input" id="f-parking" type="text" placeholder="Describe parking location..." />
+      </div>
+      <div class="kf-f full">
+        <label class="kf-label">Other Requirements</label>
+        <textarea class="kf-ta" id="f-pother" placeholder="Any additional notes..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENGINEERING -->
+  <div class="kf-card c2" id="sec-eng">
+    <div class="kf-sh"><span class="kf-num">2</span><span class="kf-st">Engineering</span></div>
+    <div class="kf-fields">
+      <div class="kf-row">
+        <div class="kf-f">
+          <label class="kf-label">Quoted By</label>
+          <input class="kf-input" id="f-quoted" type="text" placeholder="Name" />
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">Lead Engineer</label>
+          <input class="kf-input" id="f-eng" type="text" placeholder="Name" />
+        </div>
+      </div>
+      <div class="kf-row">
+        <div class="kf-f">
+          <label class="kf-label">Detailed Designs Required</label>
+          <div class="tog-row" id="tg-designs" style="margin-bottom:5px">
+            <button class="tog" data-val="Yes" onclick="tog('tg-designs',this)">Yes</button>
+            <button class="tog" data-val="No"  onclick="tog('tg-designs',this)">No</button>
+          </div>
+          <input class="kf-input" id="f-ddes" type="text" placeholder="Add detail if needed..." />
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">Cable Schedule Required</label>
+          <div class="tog-row" id="tg-cable" style="margin-bottom:5px">
+            <button class="tog" data-val="Yes" onclick="tog('tg-cable',this)">Yes</button>
+            <button class="tog" data-val="No"  onclick="tog('tg-cable',this)">No</button>
+          </div>
+          <input class="kf-input" id="f-cdet" type="text" placeholder="Add detail if needed..." />
+        </div>
+      </div>
+      <div class="kf-f full">
+        <label class="kf-label">Engineering Other Requirements</label>
+        <textarea class="kf-ta" id="f-eother" placeholder="None / detail here..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMISSIONING -->
+  <div class="kf-card c3" id="sec-comm">
+    <div class="kf-sh"><span class="kf-num">3</span><span class="kf-st">Commissioning</span></div>
+    <div class="kf-fields">
+      <div class="kf-row">
+        <div class="kf-f">
+          <label class="kf-label">Lead Commissioner</label>
+          <input class="kf-input" id="f-lcomm" type="text" placeholder="Name" />
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">Teams Folder Location</label>
+          <input class="kf-input" id="f-teams" type="text" placeholder="Teams › AV Delivery › ..." />
+        </div>
+      </div>
+      <div class="kf-row">
+        <div class="kf-f">
+          <label class="kf-label">DSP / Control Programming</label>
+          <div class="tog-row" id="tg-dsp">
+            <button class="tog" data-val="Yes" onclick="tog('tg-dsp',this)">Yes</button>
+            <button class="tog" data-val="No"  onclick="tog('tg-dsp',this)">No</button>
+          </div>
+        </div>
+        <div class="kf-f" id="dsp-wrap" style="display:none">
+          <label class="kf-label">DSP Programmer Name</label>
+          <input class="kf-input" id="f-dspname" type="text" placeholder="Name" />
+        </div>
+      </div>
+      <div class="cgrid">
+        <div class="kf-f">
+          <label class="kf-label">Asset Register Required</label>
+          <div class="tog-row" id="tg-asset">
+            <button class="tog" data-val="Yes" onclick="tog('tg-asset',this)">Yes</button>
+            <button class="tog" data-val="No"  onclick="tog('tg-asset',this)">No</button>
+          </div>
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">As-Builts Required</label>
+          <div class="tog-row" id="tg-asb">
+            <button class="tog" data-val="Yes" onclick="tog('tg-asb',this)">Yes</button>
+            <button class="tog" data-val="No"  onclick="tog('tg-asb',this)">No</button>
+          </div>
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">Photos Required</label>
+          <div class="tog-row" id="tg-photos">
+            <button class="tog" data-val="Yes" onclick="tog('tg-photos',this)">Yes</button>
+            <button class="tog" data-val="No"  onclick="tog('tg-photos',this)">No</button>
+          </div>
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">Training Required</label>
+          <div class="tog-row" id="tg-train">
+            <button class="tog" data-val="Yes" onclick="tog('tg-train',this)">Yes</button>
+            <button class="tog" data-val="No"  onclick="tog('tg-train',this)">No</button>
+          </div>
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">User Guides Required</label>
+          <div class="tog-row" id="tg-guides">
+            <button class="tog" data-val="Yes" onclick="tog('tg-guides',this)">Yes</button>
+            <button class="tog" data-val="No"  onclick="tog('tg-guides',this)">No</button>
+          </div>
+        </div>
+      </div>
+      <div class="kf-f full">
+        <label class="kf-label">Commissioning Other Requirements</label>
+        <textarea class="kf-ta" id="f-cother" placeholder="None / detail here..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITE AND SAFETY -->
+  <div class="kf-card c4" id="sec-safe">
+    <div class="kf-sh"><span class="kf-num">4</span><span class="kf-st">Site and safety information</span></div>
+    <div class="kf-fields">
+      <div class="kf-row">
+        <div class="kf-f">
+          <label class="kf-label">Site Induction</label>
+          <div class="tog-row" id="tg-induction">
+            <button class="tog" data-val="Yes" onclick="tog('tg-induction',this)">Yes</button>
+            <button class="tog" data-val="No"  onclick="tog('tg-induction',this)">No</button>
+          </div>
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">BuildPass Approved</label>
+          <div class="tog-row" id="tg-buildpass">
+            <button class="tog" data-val="Yes" onclick="tog('tg-buildpass',this)">Yes</button>
+            <button class="tog" data-val="No"  onclick="tog('tg-buildpass',this)">No</button>
+            <button class="tog" data-val="N/A" onclick="tog('tg-buildpass',this)">N/A</button>
+          </div>
+        </div>
+      </div>
+      <div class="kf-f full">
+        <label class="kf-label">PPE Worn</label>
+        <div class="chk-row" id="cb-ppe">
+          <label class="chk"><input type="checkbox" value="Safety Boots" />Safety Boots</label>
+          <label class="chk"><input type="checkbox" value="Hi-Vis" />Hi-Vis</label>
+          <label class="chk"><input type="checkbox" value="Hard Hat" />Hard Hat</label>
+          <label class="chk"><input type="checkbox" value="Safety Glasses" />Safety Glasses</label>
+          <label class="chk"><input type="checkbox" value="Gloves" />Gloves</label>
+          <label class="chk"><input type="checkbox" value="Hearing Protection" />Hearing Protection</label>
+          <label class="chk"><input type="checkbox" value="Other" />Other</label>
+        </div>
+      </div>
+      <div class="kf-f full">
+        <label class="kf-label">SWMS Reviewed</label>
+        <div class="tog-row" id="tg-swms">
+          <button class="tog" data-val="Yes" onclick="tog('tg-swms',this)">Yes</button>
+          <button class="tog" data-val="No"  onclick="tog('tg-swms',this)">No</button>
+          <button class="tog" data-val="N/A" onclick="tog('tg-swms',this)">N/A</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kf-bar">
+    <div class="kf-prog">
+      <div class="kf-prog-t"><span id="prog-a">0 answered</span><span id="prog-r">Required 0 of 2</span></div>
+      <div class="kf-track"><i id="prog-bar"></i></div>
+    </div>
+    <button class="btn-reset" onclick="resetForm()">Clear form</button>
+    <button class="btn-send" id="send-btn" onclick="submitForm()">
+      <span class="spin" id="spinner"></span>
+      <span id="send-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>
+      <span id="send-lbl">Copy formatted email</span>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SUCCESS SCREEN
+═══════════════════════════════════════════ -->
+<div id="success-screen">
+  <div class="success-card">
+
+    <div class="success-top">
+      <div class="success-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#7fd1a0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+      <h2>Email copied to clipboard</h2>
+      <p>The formatted table — colours and all — is on your clipboard, ready to paste into Outlook.</p>
+    </div>
+
+    <div class="success-body">
+
+      <div class="dl-badge">
+        <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+        <span>Subject: <span id="dl-filename">AV Project Kick-Off</span></span>
+        <button class="btn-new" style="padding:5px 12px;font-size:12px" onclick="copySubject()">Copy subject</button>
+      </div>
+
+      <ul class="step-list">
+        <li>
+          <div class="step-num">1</div>
+          <div>In Outlook, click <strong>New Email</strong>, then paste the <strong>subject</strong> above into the Subject line.</div>
+        </li>
+        <li>
+          <div class="step-num">2</div>
+          <div>Click in the message body and press <strong>Ctrl+V</strong> (or <strong>⌘+V</strong> on Mac) — the formatted table will appear with all colours and layout intact.</div>
+        </li>
+        <li>
+          <div class="step-num">3</div>
+          <div>Add your <strong>recipients</strong> and hit <strong>Send</strong>.</div>
+        </li>
+      </ul>
+
+      <div class="action-row">
+        <button class="btn-dl-again" onclick="copyAgain()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> Copy again</button>
+        <button class="btn-new" onclick="newForm()">Start new kick-off</button>
+      </div>
+
+      <div class="prev-wrap">
+        <div class="prev-top">
+          <div>
+            <div class="prev-lbl">Email preview</div>
+            <div class="prev-sub" id="prev-subj"></div>
+          </div>
+        </div>
+        <div class="prev-scroll">
+          <div class="prev-inner">
+            <div id="email-rendered"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+var _html = '', _subj = '', _plain = '';
+
+/* ── Toggles ── */
+function tog(gid, btn) {
+  document.getElementById(gid).querySelectorAll('.tog').forEach(function(b){ b.classList.remove('ay','an','aa'); });
+  var cls = btn.dataset.val === 'Yes' ? 'ay' : btn.dataset.val === 'No' ? 'an' : 'aa';
+  btn.classList.add(cls);
+  if (gid === 'tg-dsp') {
+    document.getElementById('dsp-wrap').style.display = btn.dataset.val === 'Yes' ? 'flex' : 'none';
+  }
+  if (gid === 'tg-parking') {
+    document.getElementById('parking-wrap').style.display = btn.dataset.val === 'Yes' ? 'flex' : 'none';
+  }
+}
+function gt(gid) {
+  var a = document.querySelector('#' + gid + ' .tog.ay, #' + gid + ' .tog.an, #' + gid + ' .tog.aa');
+  return a ? a.dataset.val : '';
+}
+function gc(gid) {
+  var arr = Array.prototype.map.call(document.querySelectorAll('#' + gid + ' input:checked'), function(cb){ return cb.value; });
+  return arr.join(', ');
+}
+function v(id)  { var e = document.getElementById(id); return e ? e.value.trim() : ''; }
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function fmtTog(tid, did) {
+  var t = gt(tid), d = did ? v(did) : '';
+  if (!t) return '';
+  return (t === 'Yes' && d) ? 'Yes \u2014 ' + d : t;
+}
+
+/* ── Email HTML builder ── */
+function buildHTML(d) {
+  var F = 'font-family:Calibri,Arial,sans-serif;';
+  var today = new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'});
+  var VAL = 'color:#0F172A;font-size:10.5pt;' + F;
+  function pill(t,bg,fg,bd) {
+    return '<span style="display:inline-block;background:' + bg + ';color:' + fg + ';border:1px solid ' + bd + ';border-radius:999px;padding:2px 10px;font-size:9.5pt;font-weight:bold;' + F + '">' + esc(t) + '</span>';
+  }
+  function empty() {
+    return '<span style="display:inline-block;border:1px dashed #CBD5E1;border-radius:6px;padding:1px 8px;color:#94A3B8;font-size:9.5pt;' + F + '">Not provided</span>';
+  }
+  function val(x) {
+    if (!x) return empty();
+    var m = /^(Yes|No|N\/A)(?: \u2014 ([\s\S]*))?$/.exec(x);
+    if (m) {
+      var b = m[1]==='Yes' ? pill('Yes','#DCFCE7','#166534','#BBF7D0') : m[1]==='No' ? pill('No','#FEE2E2','#991B1B','#FECACA') : pill('N/A','#F1F5F9','#475569','#E2E8F0');
+      return b + (m[2] ? ' <span style="' + VAL + '">' + esc(m[2]) + '</span>' : '');
+    }
+    return '<span style="' + VAL + '">' + esc(x) + '</span>';
+  }
+  function chips(x) {
+    if (!x) return empty();
+    return x.split(', ').map(function(t){ return pill(t,'#F1F5F9','#334155','#CBD5E1'); }).join(' ');
+  }
+  var cl = 'padding:10px 14px;border-top:1px solid #F1F5F9;vertical-align:top;color:#64748B;font-weight:bold;font-size:9.5pt;' + F;
+  var cv = 'padding:10px 14px;border-top:1px solid #F1F5F9;vertical-align:top;' + F;
+  function r(l1,v1,l2,v2) {
+    return '<tr><td style="' + cl + 'width:19%;">' + esc(l1) + '</td><td style="' + cv + 'width:31%;">' + val(v1) + '</td>' +
+      '<td style="' + cl + 'width:19%;">' + esc(l2) + '</td><td style="' + cv + 'width:31%;">' + val(v2) + '</td></tr>';
+  }
+  function rw(l,x,html) {
+    return '<tr><td style="' + cl + 'width:19%;">' + esc(l) + '</td><td colspan="3" style="' + cv + '">' + (html || val(x)) + '</td></tr>';
+  }
+  function card(title, accent, rows) {
+    return '<tr><td style="padding:0 16px 14px;"><table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:separate;border-spacing:0;background:#fff;border:1px solid #E2E8F0;border-left:4px solid ' + accent + ';border-radius:12px;">' +
+      '<tr><td colspan="4" bgcolor="' + accent + '" style="background:' + accent + ';color:#FFFFFF;padding:10px 14px;font-size:12pt;font-weight:bold;border-radius:8px 8px 0 0;' + F + '"><font color="#FFFFFF" size="3" face="Calibri,Arial,sans-serif"><b>' + title + '</b></font></td></tr>' + rows + '</table></td></tr>';
+  }
+  return '<table width="700" cellpadding="0" cellspacing="0" style="border-collapse:separate;border-spacing:0;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;' + F + '">' +
+    '<tr><td bgcolor="#1D3461" style="background-color:#1D3461;background-image:linear-gradient(135deg,#13224A 0%,#1D3461 52%,#2A5AA0 100%);color:#FFFFFF;padding:26px 28px 24px;border-radius:12px 12px 0 0;' + F + '">' +
+      '<div style="margin-bottom:14px;"><span style="display:inline-block;background:#3A4F7C;border:1px solid #5A6E97;border-radius:999px;padding:4px 12px;color:#FFFFFF;font-size:10pt;font-weight:bold;' + F + '"><font color="#7FD1A0">&#9679;</font>&nbsp;<font color="#FFFFFF">Audio Visual</font></span></div>' +
+      '<div style="color:#FFFFFF;font-size:28pt;font-weight:bold;line-height:1.1;' + F + '"><font color="#FFFFFF" size="6" face="Calibri,Arial,sans-serif" style="font-size:28pt;"><b>Project Kick-Off</b></font></div>' +
+      '<div style="color:#D2D8E4;font-size:11pt;padding-top:8px;' + F + '"><font color="#D2D8E4" size="3" face="Calibri,Arial,sans-serif">' + esc(d.pname) + (d.jobno ? ' &nbsp;|&nbsp; ' + esc(d.jobno) : '') + '</font></div></td></tr>' +
+    '<tr><td style="height:16px;font-size:0;line-height:0;">&nbsp;</td></tr>' +
+    card('Project Overview', '#2A4F8F',
+      r('Project Name', d.pname, 'Project Manager', d.pm) +
+      r('Job Number', d.jobno, 'Client Contact', d.client) +
+      r('Estimated Start', d.start, 'Start Time', d.starttime) +
+      r('Server Folder', d.server, 'Parking Available', d.parking) +
+      rw('Other Requirements', d.pother)) +
+    card('Engineering', '#A8650C',
+      r('Quoted By', d.quoted, 'Lead Engineer', d.eng) +
+      r('Detailed Designs', d.ddes, 'Cable Schedule', d.cdet) +
+      rw('Other Requirements', d.eother)) +
+    card('Commissioning', '#1F7A3E',
+      r('Lead Commissioner', d.lcomm, 'Teams Folder', d.teams) +
+      r('DSP / Control Programming', d.dsp, 'Asset Register', d.asset) +
+      r('As-Builts', d.asb, 'Photos', d.photos) +
+      r('Training', d.train, 'User Guides', d.guides) +
+      rw('Other Requirements', d.cother)) +
+    card('Site &amp; Safety', '#A82B2B',
+      r('Site Induction', d.induction, 'BuildPass Approved', d.buildpass) +
+      rw('PPE Worn', '', chips(d.ppe)) +
+      rw('SWMS Reviewed', d.swms)) +
+    '<tr><td style="padding:2px 24px 16px;color:#94A3B8;font-size:9pt;' + F + '">AV Project Kick-Off &bull; Internal &bull; ' + today + '</td></tr>' +
+    '</table>';
+}
+
+/* ── Generate & download .eml ──
+   X-Unsent: 1 tells Outlook to open the file directly in compose mode
+   rather than as a received/read message.
+── */
+function buildPlainText(d) {
+  function row(l, val) { return l + ': ' + (val || String.fromCharCode(8212)); }
+  return [
+    'AUDIO VISUAL PROJECT KICK-OFF', '',
+    'PROJECT',
+    row('Project Name', d.pname), row('Project Manager', d.pm),
+    row('Job Number', d.jobno), row('Client Contact', d.client),
+    row('Estimated Start', d.start), row('Start Time', d.starttime),
+    row('Server Folder Location', d.server), row('Parking Available', d.parking),
+    row('Other Requirements', d.pother), '',
+    'ENGINEERING',
+    row('Quoted By', d.quoted), row('Lead Engineer', d.eng),
+    row('Detailed Designs Required', d.ddes), row('Cable Schedule Required', d.cdet),
+    row('Other Requirements', d.eother), '',
+    'COMMISSIONING',
+    row('Lead Commissioner', d.lcomm), row('Teams Folder Location', d.teams),
+    row('DSP/Control Programming', d.dsp), row('Asset Register Required', d.asset),
+    row('As-Builts Required', d.asb), row('Photos Required', d.photos),
+    row('Training Required', d.train), row('User Guides Required', d.guides),
+    row('Other Requirements', d.cother), '',
+    'SITE AND SAFETY',
+    row('Site Induction', d.induction), row('BuildPass Approved', d.buildpass),
+    row('PPE Worn', d.ppe), row('SWMS Reviewed', d.swms)
+  ].join('\n');
+}
+
+function copyToClipboard(htmlBody, plainBody) {
+  if (navigator.clipboard && window.ClipboardItem) {
+    var item = new ClipboardItem({
+      'text/html':  new Blob([htmlBody],  { type: 'text/html' }),
+      'text/plain': new Blob([plainBody], { type: 'text/plain' })
+    });
+    return navigator.clipboard.write([item]);
+  }
+  if (navigator.clipboard) return navigator.clipboard.writeText(plainBody);
+  return Promise.reject(new Error('Clipboard API not available'));
+}
+
+function copySubject() {
+  if (navigator.clipboard) navigator.clipboard.writeText(_subj);
+}
+
+/* ── Submit ── */
+function submitForm() {
+  if (!v('f-pname')) { flash('f-pname'); return; }
+
+  var startRaw = document.getElementById('f-start').value;
+  var startFmt = startRaw
+    ? new Date(startRaw + 'T12:00:00').toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'})
+    : '';
+
+  var startTimeRaw = document.getElementById('f-starttime').value;
+  var startTimeFmt = startTimeRaw
+    ? new Date('2000-01-01T' + startTimeRaw).toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'})
+    : '';
+
+  var dspTog = gt('tg-dsp');
+  var dspVal = dspTog === 'Yes'
+    ? 'Yes' + (v('f-dspname') ? ' \u2014 ' + v('f-dspname') : '')
+    : dspTog;
+
+  var parkingTog = gt('tg-parking');
+  var parkingVal = parkingTog === 'Yes'
+    ? 'Yes' + (v('f-parking') ? ' \u2014 ' + v('f-parking') : '')
+    : parkingTog;
+
+  var d = {
+    pname:  v('f-pname'),  pm:     v('f-pm'),
+    jobno:  v('f-jobno'),  server: v('f-server'),
+    client: v('f-client'), start:  startFmt,
+    starttime: startTimeFmt, parking: parkingVal,
+    pother: v('f-pother'),
+    quoted: v('f-quoted'), eng:    v('f-eng'),
+    ddes:   fmtTog('tg-designs','f-ddes'),
+    cdet:   fmtTog('tg-cable','f-cdet'),
+    eother: v('f-eother'),
+    lcomm:  v('f-lcomm'),  teams:  v('f-teams'),
+    dsp:    dspVal,
+    asset:  gt('tg-asset'), asb:    gt('tg-asb'),
+    photos: gt('tg-photos'),train:  gt('tg-train'),
+    guides: gt('tg-guides'),cother: v('f-cother'),
+    induction: gt('tg-induction'), buildpass: gt('tg-buildpass'),
+    ppe: gc('cb-ppe'), swms: gt('tg-swms')
+  };
+
+  _html  = buildHTML(d);
+  _subj  = 'AV Project Kick-Off - ' + d.pname + (d.jobno ? ' (' + d.jobno + ')' : '');
+  _plain = buildPlainText(d);
+
+  setSending(true);
+
+  copyToClipboard(_html, _plain).then(function(){
+    // Show success
+    document.getElementById('email-rendered').innerHTML = _html;
+    document.getElementById('prev-subj').textContent    = _subj;
+    document.getElementById('dl-filename').textContent  = _subj;
+
+    document.getElementById('form-page').style.display    = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    setSending(false);
+  }).catch(function(){
+    setSending(false);
+    alert('Could not copy to clipboard. Please allow clipboard access in your browser and try again.');
+  });
+}
+
+function copyAgain() {
+  copyToClipboard(_html, _plain).catch(function(){
+    alert('Could not copy to clipboard. Please allow clipboard access in your browser and try again.');
+  });
+}
+
+function flash(id) {
+  var e = document.getElementById(id);
+  if (!e) return;
+  e.focus();
+  e.classList.add('err-flash');
+  setTimeout(function(){ e.classList.remove('err-flash'); }, 2200);
+}
+
+function setSending(on) {
+  var btn = document.getElementById('send-btn');
+  btn.disabled = on;
+  document.getElementById('spinner').style.display   = on ? 'block' : 'none';
+  document.getElementById('send-icon').style.display = on ? 'none'  : 'inline';
+  document.getElementById('send-lbl').textContent    = on ? 'Copying...' : 'Copy formatted email';
+}
+
+function resetForm() {
+  document.querySelectorAll('.kf-input,.kf-ta').forEach(function(e){ e.value = ''; });
+  document.querySelectorAll('.tog').forEach(function(b){ b.classList.remove('ay','an','aa'); });
+  document.querySelectorAll('.chk input[type="checkbox"]').forEach(function(cb){ cb.checked = false; });
+  document.getElementById('dsp-wrap').style.display = 'none';
+  document.getElementById('parking-wrap').style.display = 'none';
+}
+
+function newForm() {
+  resetForm();
+  document.getElementById('success-screen').style.display = 'none';
+  document.getElementById('form-page').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+/* ── Progress ── */
+function updateProgress() {
+  var f = Array.prototype.filter.call(document.querySelectorAll('#form-page .kf-input,#form-page .kf-ta'), function(e){ return e.offsetParent !== null; });
+  var done = f.filter(function(e){ return e.value.trim(); }).length, total = f.length;
+  document.querySelectorAll('#form-page .tog-row').forEach(function(g){ total++; if (g.querySelector('.ay,.an,.aa')) done++; });
+  total++; if (document.querySelector('#cb-ppe input:checked')) done++;
+  var req = ['f-pname','f-pm'].filter(function(i){ return v(i); }).length;
+  document.getElementById('prog-bar').style.width = Math.round(done / total * 100) + '%';
+  document.getElementById('prog-a').textContent = done + ' of ' + total + ' answered';
+  document.getElementById('prog-r').textContent = 'Required ' + req + ' of 2';
+}
+['tog','resetForm'].forEach(function(n){ var o = window[n]; window[n] = function(){ o.apply(this, arguments); updateProgress(); }; });
+document.addEventListener('input', updateProgress);
+document.addEventListener('change', updateProgress);
+updateProgress();
+(function(){var L=[].slice.call(document.querySelectorAll('.kf-nav a')),lock=false;
+function mark(c){L.forEach(function(a){a.classList.toggle('on',a===c);});}
+function spy(){if(lock)return;var c=L[0],y=window.innerHeight*0.45;L.forEach(function(a){var t=document.querySelector(a.getAttribute('href'));if(t&&t.getBoundingClientRect().top<y)c=a;});mark(c);}
+L.forEach(function(a){a.addEventListener('click',function(){lock=true;mark(a);});});
+['wheel','touchstart','keydown','mousedown'].forEach(function(e){window.addEventListener(e,function(ev){if(!(ev.target.closest&&ev.target.closest('.kf-nav')))lock=false;},{passive:true});});
+window.addEventListener('scroll',spy,{passive:true});spy();})();
+</script>
+</body>
+</html>
