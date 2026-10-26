@@ -21,6 +21,8 @@
     .kf-hero{position:relative;overflow:hidden;border-radius:20px;padding:2.2rem 2rem 2rem;margin-bottom:1.4rem;color:#fff;background:linear-gradient(135deg,#13224a 0%,#1d3461 52%,#2a5aa0 100%);box-shadow:0 16px 40px -16px rgba(29,52,97,.6)}
     .kf-wave{position:absolute;right:-20px;top:50%;transform:translateY(-50%);width:380px;max-width:70%;opacity:.55;pointer-events:none}
     .kf-badge{position:relative;display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:5px 12px;border-radius:99px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22)}
+    .kf-ver{position:relative;display:inline-block;margin-left:8px;font-size:12px;font-weight:600;padding:5px 10px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.85)}
+    .kf-foot{text-align:center;font-size:12px;color:var(--txt2);padding:1.25rem 0 .5rem}
     .kf-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:#7fd1a0}
     .kf-title{position:relative;display:block;font-size:clamp(28px,5vw,38px);font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:14px 0 8px}
     .kf-sub{position:relative;max-width:34ch;font-size:15px;line-height:1.5;color:rgba(255,255,255,.78)}
@@ -141,7 +143,7 @@
       <svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
     </button>
     <svg class="kf-wave" viewBox="0 0 360 120" fill="none" stroke="#fff" stroke-linecap="round" aria-hidden="true"><path stroke-width="2" opacity=".5" d="M0 60C30 20 50 100 80 60S130 10 160 60 220 110 250 60 310 20 360 60"/><path stroke-width="2" opacity=".25" d="M0 60C30 95 55 25 85 60S135 105 165 60 225 15 255 60 315 100 360 60"/></svg>
-    <div class="kf-badge">Audio Visual</div>
+    <div class="kf-badge">Audio Visual</div><span class="kf-ver" id="ver-tag">v1.0</span>
     <h1 class="kf-title">Project Kick-Off</h1>
     <p class="kf-sub">Fill in the details, then copy the formatted summary straight into Outlook.</p>
   </div>
@@ -202,6 +204,32 @@
         <input class="kf-input" id="f-parking" type="text" placeholder="Describe parking location..." />
       </div>
       <div class="kf-f full">
+        <label class="kf-label">Site Address</label>
+        <input class="kf-input" id="f-siteaddr" type="text" placeholder="Street, suburb, state, postcode" />
+      </div>
+      <div class="kf-row">
+        <div class="kf-f">
+          <label class="kf-label">On-site Contact Name</label>
+          <input class="kf-input" id="f-sitecon" type="text" placeholder="Full name" />
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">On-site Contact Phone</label>
+          <input class="kf-input" id="f-sitephone" type="tel" placeholder="04xx xxx xxx" />
+        </div>
+      </div>
+      <div class="kf-f full">
+        <label class="kf-label">Site Access Hours</label>
+        <input class="kf-input" id="f-sitehours" type="text" placeholder="e.g. Mon–Fri 7:00 am – 4:00 pm" />
+      </div>
+      <div class="kf-f full">
+        <label class="kf-label">Access Restrictions</label>
+        <textarea class="kf-ta" id="f-siterestrict" placeholder="After-hours work, lift or loading dock bookings, induction lead times..."></textarea>
+      </div>
+      <div class="kf-f full">
+        <label class="kf-label">Scope Summary</label>
+        <textarea class="kf-ta" id="f-scope" placeholder="Short summary of what is being delivered..."></textarea>
+      </div>
+      <div class="kf-f full">
         <label class="kf-label">Other Requirements</label>
         <textarea class="kf-ta" id="f-pother" placeholder="Any additional notes..."></textarea>
       </div>
@@ -259,6 +287,26 @@
         <div class="kf-f">
           <label class="kf-label">Teams Folder Location</label>
           <input class="kf-input" id="f-teams" type="text" placeholder="Teams › AV Delivery › ..." />
+        </div>
+      </div>
+      <div class="kf-row">
+        <div class="kf-f">
+          <label class="kf-label">Handover Date</label>
+          <input class="kf-input" id="f-handover" type="date" />
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">Client IT Contact Name</label>
+          <input class="kf-input" id="f-itname" type="text" placeholder="Full name" />
+        </div>
+      </div>
+      <div class="kf-row">
+        <div class="kf-f">
+          <label class="kf-label">Client IT Contact Phone</label>
+          <input class="kf-input" id="f-itphone" type="tel" placeholder="04xx xxx xxx" />
+        </div>
+        <div class="kf-f">
+          <label class="kf-label">Client IT Contact Email</label>
+          <input class="kf-input" id="f-itemail" type="email" placeholder="name@company.com" />
         </div>
       </div>
       <div class="kf-row">
@@ -374,6 +422,7 @@
       <span id="send-lbl">Copy formatted email</span>
     </button>
   </div>
+  <div class="kf-foot" id="ver-foot">v1.0 &bull; 26 Oct 2026 &bull; Created by Andrew Scofield</div>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -435,6 +484,11 @@
 </div>
 
 <script>
+/* ── Version info: update here only ── */
+var APP_VERSION = 'v1.0', APP_DATE = '26 Oct 2026', APP_AUTHOR = 'Andrew Scofield';
+document.getElementById('ver-tag').textContent = APP_VERSION;
+document.getElementById('ver-foot').textContent = APP_VERSION + ' \u2022 ' + APP_DATE + ' \u2022 Created by ' + APP_AUTHOR;
+
 var _html = '', _subj = '', _plain = '';
 
 /* ── Toggles ── */
@@ -513,6 +567,11 @@ function buildHTML(d) {
       r('Job Number', d.jobno, 'Client Contact', d.client) +
       r('Estimated Start', d.start, 'Start Time', d.starttime) +
       r('Server Folder', d.server, 'Parking Available', d.parking) +
+      rw('Site Address', d.siteaddr) +
+      r('On-site Contact', d.sitecon, 'On-site Phone', d.sitephone) +
+      rw('Site Access Hours', d.sitehours) +
+      rw('Access Restrictions', d.siterestrict) +
+      rw('Scope Summary', d.scope) +
       rw('Other Requirements', d.pother)) +
     card('Engineering', '#A8650C',
       r('Quoted By', d.quoted, 'Lead Engineer', d.eng) +
@@ -520,6 +579,8 @@ function buildHTML(d) {
       rw('Other Requirements', d.eother)) +
     card('Commissioning', '#1F7A3E',
       r('Lead Commissioner', d.lcomm, 'Teams Folder', d.teams) +
+      r('Handover Date', d.handover, 'Client IT Contact', d.itname) +
+      r('IT Contact Phone', d.itphone, 'IT Contact Email', d.itemail) +
       r('DSP / Control Programming', d.dsp, 'Asset Register', d.asset) +
       r('As-Builts', d.asb, 'Photos', d.photos) +
       r('Training', d.train, 'User Guides', d.guides) +
@@ -528,7 +589,7 @@ function buildHTML(d) {
       r('Site Induction', d.induction, 'BuildPass Approved', d.buildpass) +
       rw('PPE Worn', '', chips(d.ppe)) +
       rw('SWMS Reviewed', d.swms)) +
-    '<tr><td style="padding:2px 24px 16px;color:#94A3B8;font-size:9pt;' + F + '">AV Project Kick-Off &bull; Internal &bull; ' + today + '</td></tr>' +
+    '<tr><td style="padding:2px 24px 16px;color:#94A3B8;font-size:9pt;' + F + '">AV Project Kick-Off &bull; Internal &bull; ' + today + ' &bull; ' + APP_VERSION + ' &bull; Created by ' + esc(APP_AUTHOR) + '</td></tr>' +
     '</table>';
 }
 
@@ -545,6 +606,10 @@ function buildPlainText(d) {
     row('Job Number', d.jobno), row('Client Contact', d.client),
     row('Estimated Start', d.start), row('Start Time', d.starttime),
     row('Server Folder Location', d.server), row('Parking Available', d.parking),
+    row('Site Address', d.siteaddr),
+    row('On-site Contact', d.sitecon), row('On-site Phone', d.sitephone),
+    row('Site Access Hours', d.sitehours), row('Access Restrictions', d.siterestrict),
+    row('Scope Summary', d.scope),
     row('Other Requirements', d.pother), '',
     'ENGINEERING',
     row('Quoted By', d.quoted), row('Lead Engineer', d.eng),
@@ -552,6 +617,8 @@ function buildPlainText(d) {
     row('Other Requirements', d.eother), '',
     'COMMISSIONING',
     row('Lead Commissioner', d.lcomm), row('Teams Folder Location', d.teams),
+    row('Handover Date', d.handover), row('Client IT Contact', d.itname),
+    row('IT Contact Phone', d.itphone), row('IT Contact Email', d.itemail),
     row('DSP/Control Programming', d.dsp), row('Asset Register Required', d.asset),
     row('As-Builts Required', d.asb), row('Photos Required', d.photos),
     row('Training Required', d.train), row('User Guides Required', d.guides),
@@ -587,6 +654,11 @@ function submitForm() {
     ? new Date(startRaw + 'T12:00:00').toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'})
     : '';
 
+  var handoverRaw = document.getElementById('f-handover').value;
+  var handoverFmt = handoverRaw
+    ? new Date(handoverRaw + 'T12:00:00').toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'})
+    : '';
+
   var startTimeRaw = document.getElementById('f-starttime').value;
   var startTimeFmt = startTimeRaw
     ? new Date('2000-01-01T' + startTimeRaw).toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'})
@@ -607,12 +679,15 @@ function submitForm() {
     jobno:  v('f-jobno'),  server: v('f-server'),
     client: v('f-client'), start:  startFmt,
     starttime: startTimeFmt, parking: parkingVal,
+    siteaddr: v('f-siteaddr'), sitecon: v('f-sitecon'), sitephone: v('f-sitephone'),
+    sitehours: v('f-sitehours'), siterestrict: v('f-siterestrict'), scope: v('f-scope'),
     pother: v('f-pother'),
     quoted: v('f-quoted'), eng:    v('f-eng'),
     ddes:   fmtTog('tg-designs','f-ddes'),
     cdet:   fmtTog('tg-cable','f-cdet'),
     eother: v('f-eother'),
     lcomm:  v('f-lcomm'),  teams:  v('f-teams'),
+    handover: handoverFmt, itname: v('f-itname'), itphone: v('f-itphone'), itemail: v('f-itemail'),
     dsp:    dspVal,
     asset:  gt('tg-asset'), asb:    gt('tg-asb'),
     photos: gt('tg-photos'),train:  gt('tg-train'),
